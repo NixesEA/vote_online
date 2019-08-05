@@ -21,8 +21,8 @@ class VoteListRoute extends StatefulWidget {
 class VoteListState extends State<VoteListRoute> {
   String _character;
 
-//  final String url = "http://192.168.43.27:1080/";
-  final String url = "http://92.100.133.166:1081/";
+  final String url = "http://192.168.43.27:1081/";
+//  final String url = "http://92.100.133.166:1081/";
   Map<String, int> data;
   var id;
   int rawId;
@@ -37,7 +37,7 @@ class VoteListState extends State<VoteListRoute> {
       var resBody = json.decode(res.body);
       id = resBody["id"];
       data = (resBody["speakers"] as Map<String, dynamic>).cast<String, int>();
-      main.MainScreen.s.add(id);
+      main.MainScreen.add(id.toString());
     });
     return "Success!";
   }
@@ -68,7 +68,7 @@ class VoteListState extends State<VoteListRoute> {
       var resBody = json.decode(res.body);
       id = resBody["id"];
       data = (resBody["speakers"] as Map<String, dynamic>).cast<String, int>();
-      main.MainScreen.s.add(id);
+      main.MainScreen.add(id.toString());
     });
     return "Success!";
   }
@@ -122,11 +122,7 @@ class VoteListState extends State<VoteListRoute> {
                 color: Theme.of(context).accentColor,
                 onPressed: () {
                   setState(() {
-                    print(rawId);
-                    print(main.MainScreen.s.toString());
-                    print(main.MainScreen.s.contains(0));
-                    print(main.MainScreen.s.contains(1));
-                    if (main.MainScreen.s.contains(rawId)){
+                    if (main.MainScreen.s.contains(rawId.toString())){
                       id = rawId;
                       flag = false;
                       this.getVoteData();

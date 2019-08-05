@@ -25,7 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   http: ^0.12.0+2
   toast: ^0.1.5
-  imei_plugin: ^1.1.0
+  shared_preferences: ^0.4.3
 
 dev_dependencies:
   flutter_test:

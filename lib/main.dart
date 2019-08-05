@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import "package:vote_make_app/NewRoomScreen.dart";
 import 'package:vote_make_app/RoomScreen.dart';
@@ -12,7 +13,13 @@ void main() => runApp(MaterialApp(
 
 class MainScreen extends StatefulWidget {
 
-  static Set<int> s = new Set();
+  static Set<String> s = new Set();
+
+  static void add(String idRoom) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    s.add(idRoom);
+    prefs.setStringList('counter', MainScreen.s.toList());
+  }
 
   @override
   State<StatefulWidget> createState() => MainScreenState();
@@ -20,13 +27,19 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> {
 
-//  var imei;
-//
-//  @override
-//  void initState(){
-//    super.initState();
-//    imei = Random.secure().nextInt(1000000000);
-//  }
+  @override
+  void initState(){
+    super.initState();
+    _loadCounter();
+  }
+
+  //Loading counter value on start
+  _loadCounter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      MainScreen.s.addAll(prefs.getStringList('counter'));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
