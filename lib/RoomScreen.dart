@@ -22,6 +22,7 @@ class VoteListState extends State<VoteListRoute> {
   String _character;
 
   final String url = "http://192.168.43.27:1081/";
+
 //  final String url = "http://92.100.133.166:1081/";
   Map<String, int> data;
   var id;
@@ -99,39 +100,49 @@ class VoteListState extends State<VoteListRoute> {
         return Scaffold(
           appBar: AppBar(title: Text("Wait a second!")),
           body: Container(
-              child: Center(
-                  child: Card(
-                      child: Container(
-                          child: Wrap(children: <Widget>[
-            TextField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Room Number",
-                contentPadding: const EdgeInsets.all(16.0),
-                border: InputBorder.none,
+            child: Center(
+              child: Card(
+                child: Container(
+                  child: Wrap(
+                    children: <Widget>[
+                      TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Room Number",
+                          contentPadding: const EdgeInsets.all(16.0),
+                          border: InputBorder.none,
+                        ),
+                        onChanged: (text) {
+                          print("RawId text field: $text");
+                          rawId = int.parse(text);
+                        },
+                      ),
+                      RaisedButton(
+                        child: Icon(Icons.cast_connected),
+                        textColor: Colors.white,
+                        padding: const EdgeInsets.all(16.0),
+                        color: Theme.of(context).accentColor,
+                        onPressed: () {
+                          setState(
+                            () {
+                              if (main.MainScreen.s
+                                  .contains(rawId.toString())) {
+                                id = rawId;
+                                flag = false;
+                                this.getVoteData();
+                              } else {
+                                this.connectToRoom();
+                              }
+                            },
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                ),
               ),
-              onChanged: (text) {
-                print("RawId text field: $text");
-                rawId = int.parse(text);
-              },
             ),
-            RaisedButton(
-                child: Icon(Icons.cast_connected),
-                textColor: Colors.white,
-                padding: const EdgeInsets.all(16.0),
-                color: Theme.of(context).accentColor,
-                onPressed: () {
-                  setState(() {
-                    if (main.MainScreen.s.contains(rawId.toString())){
-                      id = rawId;
-                      flag = false;
-                      this.getVoteData();
-                    }else{
-                      this.connectToRoom();
-                    }
-                  });
-                })
-          ]))))),
+          ),
         );
       } else {
         return Scaffold(

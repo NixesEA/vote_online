@@ -19,6 +19,7 @@ class NewRoomRoute extends StatefulWidget {
 
 class NewRoomState extends State<NewRoomRoute> {
   final String url = "http://192.168.43.27:1081/";
+
 //  final String url = "http://92.100.133.166:1081/";
 
 //  Room room = new Room();
@@ -52,8 +53,7 @@ class NewRoomState extends State<NewRoomRoute> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => VoteListRoute()));
       } else {
-        _showToast(
-            "Произошла ошибка::${json.decode(res.body)["status"]}");
+        _showToast("Произошла ошибка::${json.decode(res.body)["status"]}");
       }
     });
 
